@@ -2,6 +2,7 @@
 Seoul, Korea</br>
 20th May 2017
 </br>
+</br>
 **Deep Learning with Microsoft R Open**</br>
 Malaysia R User Group</br>
 Presenter: Poo Kuan Hoong, Ph.D</br>
