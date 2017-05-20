@@ -1,19 +1,19 @@
-#####################################################################
-## Deep Learning Malaysia Meetup                                   ##
-## 15th February 2017                                              ##
-## Sourcecode: https://github.com/kuanhoong/deeplearning-malaysia/ ##
-## Title: Machine and Deep Learning with R                         ##
-## Presenter: Poo Kuan Hoong                                       ##
-#####################################################################
+#############################################################
+## APAC Machine Learning & Data Science Community Summit  ##
+## Seoul, Korea                                           ##
+## 20th May 2017                                          ##
+## Malaysia R User Group                                  ##
+## Poo Kuan Hoong, Ph.D                                   ##
+############################################################
 
 library(mxnet)
 library(mlbench)
 library(data.table)
 
-setwd('C:/Users/Kuan/Documents/GitHub/deeplearning-malaysia/')
+setwd('C:/Users/Kuan/Desktop/apac_ml')
 
-train <- fread('data/train.csv')
-test <- fread('data/test.csv')
+train <- fread('mxnet/data/train.csv')
+test <- fread('mxnet/data/test.csv')
 
 ###########################
 ## Data Exploration      ##
@@ -60,17 +60,22 @@ table(train.y)
 
 # Configuring the Network
 data <- mx.symbol.Variable("data")
-# set the first hidden layer as fully connected with 128 hidden
-# neurons.
+
+# set the first hidden layer as fully connected with 128 hidden neurons
 fc1 <- mx.symbol.FullyConnected(data, name="fc1", num_hidden=128)
+
 # relu activation function
 act1 <- mx.symbol.Activation(fc1, name="relu1", act_type="relu")
+
 # Second hidden layer with 64 hidden neurons 
 fc2 <- mx.symbol.FullyConnected(act1, name="fc2", num_hidden=64)
+
 # relu activation function
 act2 <- mx.symbol.Activation(fc2, name="relu2", act_type="relu")
+
 # Third hidden layer with 10 hidden neurons 
 fc3 <- mx.symbol.FullyConnected(act2, name="fc3", num_hidden=10)
+
 #  softmax to get a probabilistic prediction
 softmax <- mx.symbol.SoftmaxOutput(fc3, name="sm")
 
@@ -109,6 +114,7 @@ write.csv(submission, file='submission.csv', row.names=FALSE,  quote=FALSE)
 
 # input
 data <- mx.symbol.Variable('data')
+
 # first conv
 conv1 <- mx.symbol.Convolution(data=data, kernel=c(5,5), num_filter=20)
 tanh1 <- mx.symbol.Activation(data=conv1, act_type="tanh")
@@ -123,8 +129,10 @@ pool2 <- mx.symbol.Pooling(data=tanh2, pool_type="max",
 flatten <- mx.symbol.Flatten(data=pool2)
 fc1 <- mx.symbol.FullyConnected(data=flatten, num_hidden=500)
 tanh3 <- mx.symbol.Activation(data=fc1, act_type="tanh")
+
 # second fullc
 fc2 <- mx.symbol.FullyConnected(data=tanh3, num_hidden=10)
+
 # loss
 lenet <- mx.symbol.SoftmaxOutput(data=fc2)
 
